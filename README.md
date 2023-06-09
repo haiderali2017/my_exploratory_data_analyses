@@ -3,6 +3,10 @@ This repository contains multiple small scale projects done mainly focusing arou
 tools such as Jupyter Notebook, PowerBI, etc.
 
 # Folder Structure
+## Applied Research Project
+- This is my Masters final thesis project.
+- The project is about identifying the causes of customer churn in telecommunication industry. It involves building machine learning models that help predict future customer churns using a dataset. 
+
 ## pharmacies_in_ireland
 - This project contains analysis performed on Pharmacies in Ireland.
 - The analysis is performed using Pandas and Numpy whereas Seaborn and Matplotlib are used for visualisation purposes.
