@@ -1,8 +1,11 @@
 # Exploratory Data Analyses
-This repository contains multiple small scale projects done mainly focusing around data analysis. It includes data analysis performed using 
-tools such as Jupyter Notebook, PowerBI, etc.
+This repository contains multiple small scale projects done mainly focusing around data analysis. It includes data analysis performed using tools such as Jupyter Notebook, PowerBI, etc. 
 
 # Folder Structure
+## Product Sales Tableau Project
+- This is my Masters 2nd Semester project made in the **Data Visualisation** course.
+- The **.twb** is Tableau file that contains all the sheets and dashboards. **sales.xlsx** is the relevant dataset. **.pptx** file provides an explanation of the results within the Tableau file.
+ 
 ## Airline Reservation System Project
 - This is my Bachelors 3rd Semester project made in the **Database Development** course.
 - As the name suggests, it is about an Airline Reservation System. 
