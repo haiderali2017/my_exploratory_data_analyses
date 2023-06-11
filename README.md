@@ -3,6 +3,13 @@ This repository contains multiple small scale projects done mainly focusing arou
 tools such as Jupyter Notebook, PowerBI, etc.
 
 # Folder Structure
+## Airline Reservation System Project
+- This is my Bachelors 3rd Semester project made in the **Database Development** course.
+- As the name suggests, it is about an Airline Reservation System. 
+- The **Airline Reservation System (NEW)** PDF file presents the conceptual schema of the Airline Reservation System.
+- The **changed_dbd_normalization** Word file contains the logical schema (tables).
+- The **SQL Joins** Word file showcases all possible join scenarios in the Airline Reservation System. The same applies to the **SQL Scenarios** and **SQL Views** Word files, which were created for extensive practice in SQL.
+
 ## Applied Research Project
 - This is my Masters final thesis project.
 - The project is about identifying the causes of customer churn in telecommunication industry. It involves building machine learning models that help predict future customer churns using a dataset. 
