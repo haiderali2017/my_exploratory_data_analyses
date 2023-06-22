@@ -1,6 +1,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Folder Structure](#folder_struct)
+  - [HR Analytics PowerBI Project](#hr_analytics_proj)
   - [Product Sales Tableau Project](#prod_sales_tab_proj)
   - [Airline Reservation System Project](#airline_proj)
   - [Applied Research Project](#applied_research_proj)
@@ -14,6 +15,9 @@
 This repository contains multiple small scale projects done mainly focusing around data analysis. It includes data analysis performed using tools such as Jupyter Notebook, PowerBI, etc. 
 
 ## Folder Structure <a name="folder_struct"></a>
+### HR Analytics PowerBI Project <a name="hr_analytics_proj"></a>
+- The **.pbix** is PowerBI file that contains the dashboard. **HR_Analytics.csv** is the relevant dataset. **.pdf** file showcases the output of dashboard created in PowerBI.
+
 ### Product Sales Tableau Project <a name="prod_sales_tab_proj"></a>
 - This is my Masters 2nd Semester project made in the **Data Visualisation** course.
 - The **.twb** is Tableau file that contains all the sheets and dashboards. **sales.xlsx** is the relevant dataset. **.pptx** file provides an explanation of the results within the Tableau file.
