@@ -1,30 +1,54 @@
-# Exploratory Data Analyses
+## Table of Contents
+- [Introduction](#introduction)
+- [Folder Structure](#folder_struct)
+  - [Product Sales Tableau Project](#prod_sales_tab_proj)
+  - [Airline Reservation System Project](#airline_proj)
+  - [Applied Research Project](#applied_research_proj)
+  - [pharmacies_in_ireland](#pharmacies_in_ireland)
+  - [second_hand_house_prices_ireland](#second_hand_house_prices_ireland)
+  - [US Air Quality Index Tableau Project](#us_air_tab_proj)
+  - [FireBrigadeAndAmbulanceCallOuts ETL Project](#etlproject)
+- [Contact information](#contact)
+
+## Introduction <a name="introduction"></a>
 This repository contains multiple small scale projects done mainly focusing around data analysis. It includes data analysis performed using tools such as Jupyter Notebook, PowerBI, etc. 
 
-# Folder Structure
-## Product Sales Tableau Project
+## Folder Structure <a name="folder_struct"></a>
+### Product Sales Tableau Project <a name="prod_sales_tab_proj"></a>
 - This is my Masters 2nd Semester project made in the **Data Visualisation** course.
 - The **.twb** is Tableau file that contains all the sheets and dashboards. **sales.xlsx** is the relevant dataset. **.pptx** file provides an explanation of the results within the Tableau file.
  
-## Airline Reservation System Project
+### Airline Reservation System Project <a name="airline_proj"></a>
 - This is my Bachelors 3rd Semester project made in the **Database Development** course.
 - As the name suggests, it is about an Airline Reservation System. 
 - The **Airline Reservation System (NEW)** PDF file presents the conceptual schema of the Airline Reservation System.
 - The **changed_dbd_normalization** Word file contains the logical schema (tables).
 - The **SQL Joins** Word file showcases all possible join scenarios in the Airline Reservation System. The same applies to the **SQL Scenarios** and **SQL Views** Word files, which were created for extensive practice in SQL.
 
-## Applied Research Project
+### Applied Research Project <a name="applied_research_proj"></a>
 - This is my Masters final thesis project.
 - The project is about identifying the causes of customer churn in telecommunication industry. It involves building machine learning models that help predict future customer churns using a dataset. 
 
-## pharmacies_in_ireland
+### pharmacies_in_ireland <a name="pharmacies_in_ireland"></a>
 - This project contains analysis performed on Pharmacies in Ireland.
 - The analysis is performed using Pandas and Numpy whereas Seaborn and Matplotlib are used for visualisation purposes.
 - The dataset is obtained from https://data.gov.ie/dataset/list-of-pharmacies-in-ireland?package_type=dataset which presents a list of Pharmacies in Ireland, with geographical coordinates.
-## second_hand_house_prices_ireland
+
+### second_hand_house_prices_ireland <a name="second_hand_house_prices_ireland"></a>
 - This project contains analysis performed on second hand property prices in Ireland.
 - The analysis is performed using Pandas and Numpy whereas Matplotlib is used for visualisation purpose.
 - The dataset is obtained from https://data.gov.ie/dataset/second-hand-property-prices-by-area-by-year?package_type=dataset which presents a list of house prices in major counties of Ireland with respect to year starting from 1975 to 2015.
 
-# Contact information
+### US Air Quality Index Tableau Project <a name="us_air_tab_proj"></a>
+- This is my Masters 2nd Semester project made in the **Data Visualisation** course.
+- The **.twb** is Tableau file that contains all the sheets and dashboards. Relevant dataset can be downloaded from https://drive.google.com/file/d/1Fba4OaIwrGIwopPZWMtwEZqxZBrli1wT/view?usp=sharing.
+
+### FireBrigadeAndAmbulanceCallOuts ETL Project <a name="etlproject"></a>
+- This is my Masters 1st Semester project made in the **Programming** course.
+- **CA2.py** file contains all the data analysis steps using Python and Pandas library. It also contains the ETL (Extract, Transform and Load) steps using SQL.
+- **FireBrigadeAndAmbulanceCallOuts.csv** is the relevant dataset.
+- **document_2.docx** is the complete report explaining the steps performed.
+- **high-level diagram.jpeg** is a conceptual diagram of ETL process.
+
+## Contact information <a name="contact"></a>
 My email is **alisyedhaider627@gmail.com** if you want to reach out to me for questions, feedback, or support.
