@@ -9,10 +9,13 @@
   - [second_hand_house_prices_ireland](#second_hand_house_prices_ireland)
   - [US Air Quality Index Tableau Project](#us_air_tab_proj)
   - [FireBrigadeAndAmbulanceCallOuts ETL Project](#etlproject)
+  - [Mr Price Stores in Ireland](#mrpricewebscraping)
 - [Contact information](#contact)
 
 ## Introduction <a name="introduction"></a>
 This repository contains multiple small scale projects done mainly focusing around data analysis. It includes data analysis performed using tools such as Jupyter Notebook, PowerBI, etc. 
+
+My recent project encircles around web scraping. The project title is Mr Price Stores in Ireland. I will scrape data from a static website, scrape it using Scrapy, prepare a dataset and then run analyze it using EDA libraries. Check it out in the table of contents.
 
 ## Folder Structure <a name="folder_struct"></a>
 ### HR Analytics PowerBI Project <a name="hr_analytics_proj"></a>
@@ -53,6 +56,14 @@ This repository contains multiple small scale projects done mainly focusing arou
 - **FireBrigadeAndAmbulanceCallOuts.csv** is the relevant dataset.
 - **document_2.docx** is the complete report explaining the steps performed.
 - **high-level diagram.jpeg** is a conceptual diagram of ETL process.
+
+### Mr Price Stores in Ireland <a name="mrpricewebscraping"></a>
+- First web scraping attempt using Scrapy library.
+- Used a static website to start off with static web scraping.
+- Scrapped Mr. Price stores by county and areas within those counties.
+- The scrapped data is stored within "Mr Price Stores in Ireland/mrprice_scraper/spiders/data.csv".
+- To run the project, go to "Mr Price Stores in Ireland/mrprice_scraper/spiders/mrprice.py" and execute "scrapy crawl mrprice". This will crawl the website and generate data.csv
+- Next up, I will analyze the scrapped data.csv using pandas and visualize using matplotlib and seaborn.
 
 ## Contact information <a name="contact"></a>
 My email is **alisyedhaider627@gmail.com** if you want to reach out to me for questions, feedback, or support.
