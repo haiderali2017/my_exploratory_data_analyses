@@ -16,7 +16,7 @@
 ## Introduction <a name="introduction"></a>
 This repository showcases multiple data analysis projects performed using tools such as Jupyter Notebook, PowerBI, etc. 
 
-My recent project encircles around Dublin Economic Monitor DCC. These includes indicators to monitor economic development in the Dublin City Region. 
+My recent project encircles around Dublin Economic Monitor DCC. This includes indicators to monitor economic development in the Dublin City Region. 
 
 ## Folder Structure <a name="folder_struct"></a>
 ### Dublin Economic Monitor DCC Analysis <a name="dcc_analysis"></a>
