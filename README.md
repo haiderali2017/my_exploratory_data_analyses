@@ -14,13 +14,13 @@
 - [Contact information](#contact)
 
 ## Introduction <a name="introduction"></a>
-This repository showcases multiple data analysis projects performed using tools such as Jupyter Notebook, PowerBI, etc. 
+This repository showcases multiple data analysis projects performed using Jupyter Notebook, PowerBI, etc. 
 
 My recent project encircles around Dublin Economic Monitor DCC. This includes indicators to monitor economic development in the Dublin City Region. 
 
 ## Folder Structure <a name="folder_struct"></a>
 ### Dublin Economic Monitor DCC Analysis <a name="dcc_analysis"></a>
-- This folder includes my analysis performed on Dublin Economic Monitor DCC. Dublin Economic Monitor DCC includes indicators to monitor economic development in the Dublin City Region. 
+- This folder includes analysis performed on Dublin Economic Monitor DCC. Dublin Economic Monitor DCC includes indicators to monitor economic development in the Dublin City Region. 
 
 ### HR Analytics PowerBI Project <a name="hr_analytics_proj"></a>
 - The **.pbix** is PowerBI file that contains the dashboard. **HR_Analytics.csv** is the relevant dataset. **.pdf** file showcases the output of dashboard created in PowerBI.
