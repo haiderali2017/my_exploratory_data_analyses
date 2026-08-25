@@ -1,3 +1,19 @@
+# Cleaning practices
+## 1. Changing column name
+`ALTER TABLE domestic_travel 
+RENAME COLUMN "Statistic Label" TO Statistic_Label;`
+
+## 2. Concise names for Statistic Label
+`UPDATE domestic_travel
+SET Statistic_Label = CASE Statistic_Label
+    WHEN 'Number of Trips by Irish Residents on Domestic Travel' THEN 'Number of Trips'
+    WHEN 'Number of Nights by Irish Residents on Domestic Travel' THEN 'Number of Nights'
+    WHEN 'Average Length of Stay by Irish Residents on Domestic Travel' THEN 'Average Length of Stay'
+    WHEN 'Estimated Expenditure by Irish Residents on Domestic Travel' THEN 'Estimated Expenditure'
+    ELSE Statistic_Label
+END;`
+
+
 # SQL Findings
 ## 1. Dataset size
 `SELECT COUNT(*) FROM domestic_travel;`
@@ -10,7 +26,7 @@
 ## 2. Missing values
 `SELECT 
     COUNT(*) AS total_rows,
-COUNT("Statistic Label") AS label_count,
+COUNT("Statistic_Label") AS label_count,
     COUNT("Year") AS year_count,
 COUNT("Region Visited") AS region_count,
 COUNT("UNIT") AS unit_count,
@@ -43,9 +59,4 @@ FROM domestic_travel;
 <br>
 
 # Original source of data
-The data source is also at https://data.cso.ie/. <br>
-I am listing the steps below as the URL doesn't generate a direct link to the data source.
-1. Go to https://data.cso.ie/.
-2. In the date range (below the grey 'Search' button), select 1-August-2026.
-3. Type 'HTA17' in the search text field below the date field.
-4. Select the top search result.
+The data is also at https://data.cso.ie/table/HTA17.
