@@ -73,7 +73,58 @@ FROM domestic_travel;
 | Midland              |
 <br>
 
-## 4. 
+## 4. Statistic Labels and their respective units
+*The statistic labels are measured in their units.* <br><br>
+`SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;`
 
-# Original source of data
+### Output
+| Statistic_Label        | UNIT            |
+|------------------------|-----------------|
+| Number of Trips        | Thousand        |
+| Number of Nights       | Thousand        |
+| Average Length of Stay | Nights per Trip |
+| Estimated Expenditure  | Euro Million    |
+
+## 5. Count of records for each stat label
+*Interestingly, there are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
+`SELECT`<br>`Statistic_Label,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label; `
+
+### Output
+| Statistic_Label        | Total_Records |
+|------------------------|---------------|
+| Average Length of Stay | 96            |
+| Estimated Expenditure  | 96            |
+| Number of Nights       | 96            |
+| Number of Trips        | 96            |
+
+### 6. Count of records using years
+*There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows* <br><br> 
+`SELECT`<br>`Year,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Year; `
+
+### Output
+| Year | Total_Records |
+|------|---------------|
+| 2018 | 48            |
+| 2019 | 48            |
+| 2020 | 48            |
+| 2021 | 48            |
+| 2022 | 48            |
+| 2023 | 48            |
+| 2024 | 48            |
+| 2025 | 48            |
+
+### 7. Sum aggregation of values
+*According to the dataset, 712 million nights, 286 million trips, estimated expenditure of 60 million and 242.3 nights per trip as average length of stay.* <br><br> 
+
+`SELECT`<br>`Statistic_Label,`<br>`SUM(VALUE) as _Sum,`<br>`UNIT`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label`<br>`ORDER BY _Sum DESC;`
+
+### Output
+| Statistic_Label        | _Sum    | UNIT            |
+|------------------------|---------|-----------------|
+| Number of Nights       | 712989  | Thousand        |
+| Number of Trips        | 286083  | Thousand        |
+| Estimated Expenditure  | 60489.7 | Euro Million    |
+| Average Length of Stay | 242.3   | Nights per Trip |
+
+# Source of data
 The data is also at https://data.cso.ie/table/HTA17.
