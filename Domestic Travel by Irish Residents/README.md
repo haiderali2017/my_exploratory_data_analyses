@@ -54,12 +54,13 @@ FROM domestic_travel;
 | 384 | 384 | 384 | 384 | 384 | 384 |
 
 ## 3. All Regions
-*There are 11 regions.*<br><br>
-`SELECT DISTINCT "Region_Visited" FROM domestic_travel;`
+*There are 12 regions.*<br><br>
+`SELECT DISTINCT Region_Visited FROM domestic_travel;`
 
 ### Output
-| State                |
+| Region_Visited       |
 |----------------------|
+| State                |
 | Northern and Western |
 | Border               |
 | West                 |
@@ -84,6 +85,7 @@ FROM domestic_travel;
 | Number of Nights       | Thousand        |
 | Average Length of Stay | Nights per Trip |
 | Estimated Expenditure  | Euro Million    |
+<br>
 
 ## 5. Count of records for each stat label
 *Interestingly, there are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
@@ -97,7 +99,7 @@ FROM domestic_travel;
 | Number of Nights       | 96            |
 | Number of Trips        | 96            |
 
-### 6. Count of records using years
+## 6. Count of records using years
 *There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows* <br><br> 
 `SELECT`<br>`Year,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Year; `
 
@@ -113,8 +115,13 @@ FROM domestic_travel;
 | 2024 | 48            |
 | 2025 | 48            |
 
-### 7. Sum aggregation of values
-*According to the dataset, 712 million nights, 286 million trips, estimated expenditure of 60 million and 242.3 nights per trip as average length of stay.* <br><br> 
+## 7. Sum aggregation of values
+*According to the dataset,* 
+* **Number of Nights:** *712 million*
+* **Number of Trips:** *286 million*
+* **Estimated Expenditure:** *60 euro millions*
+* **Average Length of Stay:** *242.3 nights per trip*
+<br><br> 
 
 `SELECT`<br>`Statistic_Label,`<br>`SUM(VALUE) as _Sum,`<br>`UNIT`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label`<br>`ORDER BY _Sum DESC;`
 
