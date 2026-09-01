@@ -1,24 +1,28 @@
 # Some cleaning
 ## 1. Improving column names
-`ALTER TABLE` <br> `domestic_travel
-`<br>` RENAME COLUMN `<br>`"Statistic Label" TO Statistic_Label;`
+```sql
+ALTER TABLE domestic_travel
+RENAME COLUMN "Statistic Label" TO Statistic_Label;
 
-`ALTER TABLE` <br> `domestic_travel 
-`<br>` RENAME COLUMN `<br>`"Region Visited" TO Region_Visited;
-`
+ALTER TABLE domestic_travel 
+RENAME COLUMN "Region Visited" TO Region_Visited;
+```
 
 ## 2. Concise names for Statistic Label
-*We are renaming the default label names for readability purposes. <br>For example, 'Number of Trips by Irish Residents on Domestic Travel' to 'Number of Trips' and so on.*
+*We are renaming the default label names for readability purposes. <br>For example, 'Number of Trips by Irish Residents on Domestic Travel' to 'Number of Trips'.*
 
-`UPDATE domestic_travel
-`<br>`SET Statistic_Label = CASE Statistic_Label
-    `<br>`WHEN 'Number of Trips by Irish Residents on Domestic Travel' THEN 'Number of Trips'
-    `<br>`WHEN 'Number of Nights by Irish Residents on Domestic Travel' THEN 'Number of Nights'
-    `<br>`WHEN 'Average Length of Stay by Irish Residents on Domestic Travel' THEN 'Average Length of Stay'
-    `<br>`WHEN 'Estimated Expenditure by Irish Residents on Domestic Travel' THEN 'Estimated Expenditure'
-    `<br>`ELSE Statistic_Label
-END;`
-<br>
+```sql
+UPDATE domestic_travel
+SET Statistic_Label = CASE Statistic_Label
+    WHEN 'Number of Trips by Irish Residents on Domestic Travel' THEN 'Number of Trips'
+    WHEN 'Number of Nights by Irish Residents on Domestic Travel' THEN 'Number of Nights'
+    WHEN 'Average Length of Stay by Irish Residents on Domestic Travel' THEN 'Average Length of Stay'
+    WHEN 'Estimated Expenditure by Irish Residents on Domestic Travel' THEN 'Estimated Expenditure'
+    ELSE Statistic_Label
+END;
+```
+
+### Outcome
 | **Statistic_Label (BEFORE)**        || **Statistic_Label (AFTER)**        |
 |------------------------|-|------------------------|
 | Number of Trips by Irish Residents on Domestic Travel        || Number of Trips        |
@@ -28,8 +32,10 @@ END;`
 
 # Data Exploration
 ## 1. Dataset size
-*Total 384 rows*<br><br>
+*Total 384 rows*
+```sql
 `SELECT COUNT(*) FROM domestic_travel;`
+```
 
 ### Output
 | COUNT(*) |
@@ -37,16 +43,18 @@ END;`
 | 384 |
 
 ## 2. Missing values
-*There are no missing values.*<br><br>
-`SELECT `<br>`
-COUNT(*) AS total_rows,`<br>`
-COUNT("Statistic_Label") AS label_count,`<br>`
-COUNT("Year") AS year_count,`<br>`
-COUNT("Region_Visited") AS region_count,`<br>`
-COUNT("UNIT") AS unit_count,`<br>`
-COUNT("VALUE") AS value_count`<br>`
+*There are no missing values.*
+
+```sql
+SELECT 
+COUNT(*) AS total_rows,
+COUNT("Statistic_Label") AS label_count,
+COUNT("Year") AS year_count,
+COUNT("Region_Visited") AS region_count,
+COUNT("UNIT") AS unit_count,
+COUNT("VALUE") AS value_count
 FROM domestic_travel;
-`
+```
 
 ### Output
 | total_rows | label_count | year_count | region_count | unit_count | value_count |
@@ -75,7 +83,7 @@ FROM domestic_travel;
 <br>
 
 ## 4. Statistic Labels and their respective units
-*The statistic labels are measured in their units.* <br><br>
+*The statistic labels are measured in their own units.* <br><br>
 `SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;`
 
 ### Output
@@ -88,7 +96,7 @@ FROM domestic_travel;
 <br>
 
 ## 5. Count of records for each stat label
-*Interestingly, there are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
+*There are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
 `SELECT`<br>`Statistic_Label,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label; `
 
 ### Output
@@ -116,7 +124,6 @@ FROM domestic_travel;
 | 2025 | 48            |
 
 ## 7. Sum aggregation of values
-*According to the dataset,* 
 * **Number of Nights:** *712 million*
 * **Number of Trips:** *286 million*
 * **Estimated Expenditure:** *60 euro millions*
@@ -134,9 +141,10 @@ FROM domestic_travel;
 | Average Length of Stay | 242.3   | Nights per Trip |
 
 ## 8. Time trend analysis for Number of Trips
-This section looks only at the "Number of Trips" statistic label. I want to see how did the trend go on for different regions during the 7-year period. 
+This section looks at time trend analysis for all 4 statistic labels. I want to see how was the growth for different regions during the 7-year period.
 
-After taking a good look at the table below, I observed that
+### Number of Trips
+I observed that
 * The pandemic year caused decline in the number of trips throughout all regions.
   * Dublin shows the heaviest decline of 49.4% followed by 46.44% of Mid-East.
   * Midland showed the least decline (16.52%).
@@ -145,6 +153,8 @@ After taking a good look at the table below, I observed that
 * In 2023, except for 3 regions (Border, Midland and Northern & Western), the trend keeps going in an upward direction.
 * 2024 shares the positive trend aspect of 2022.
 * In 2025, the number of trips goes in a downward direction in all regions. 
+
+<br>
 
 | Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
 |------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
@@ -156,14 +166,66 @@ After taking a good look at the table below, I observed that
 | 2024 | ▲20.2% | ▲16.85% | ▲18.83% | ▲16.15% | ▲23.87% | ▲30.37% | ▲23.51% | ▲6.02% | ▲5.25% | ▲9.62% | ▲15.81% | ▲26.14% |
 | 2025 | ▼10.18% | ▼15.09% | ▼12.89% | ▼11.58% | ▼6.14% | ▼8.13% | ▼5.2% | ▼5.58% | ▼5.24% | ▼5.57% | ▼7.77% | ▼1.54% |
 
-The above table is a beautiful presentation of results generated by the following query.
+<br>
+
+### Number of Nights
+* The pandemic year caused decline in the number of nights throughout all regions.
+  * Dublin shows the heaviest decline of 44.48% followed by 43.69% of Mid-East.
+  * Mid-West showed the least decline (3.65%).
+* 2021 (post-pandemic) continues that declining trend for all regions except,
+  * Mid-East, which is an outlier that year. It shows a 1.41% ascent. 
+* In 2022, trends show sharp inclines for all regions. 
+  * Midland (280.36%), Eastern & Midland (131.86%) and South-East (127.11%) are top 3 regions with highest growths.
+* In 2023, some regions show upward trend and others show downward trend. 
+  * Dublin marks highest growth (22.47%).
+  * Midland shows the most decline (27.81%).
+* In 2024, amongst all other growing regions, only Southern and State show a decline.
+* In 2025, opposite to 2024, amongst all other declining regions, only Southern and State show growth.
+
+<br>
+
+| Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
+|------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
+| 2019 | ▲5.21% | ▼7.57% | ▲1.59% | ▲26.66% | ▼2.35% | ▼7.82% | ▲10.49% | ▼2.98% | ▲5.73% | ▲1.31% | ▲3.79% | ▲14.0% |
+| 2020 | ▼10.38% | ▼44.48% | ▼34.31% | ▼43.69% | ▼3.65% | ▲29.15% | ▼13.97% | ▼30.63% | ▼14.82% | ▼17.58% | ▼20.19% | ▼16.18% |
+| 2021 | ▼15.05% | ▼2.39% | ▼13.93% | ▲1.41% | ▼36.41% | ▼50.09% | ▼22.93% | ▼24.64% | ▼26.05% | ▼28.0% | ▼23.95% | ▼28.1% |
+| 2022 | ▲81.99% | ▲101.25% | ▲131.86% | ▲110.48% | ▲89.25% | ▲280.36% | ▲70.64% | ▲127.11% | ▲66.91% | ▲87.76% | ▲91.41% | ▲61.86% |
+| 2023 | ▼15.05% | ▲22.47% | ▲0.1% | ▼9.22% | ▲6.75% | ▼27.81% | ▼12.57% | ▼16.31% | ▲20.31% | ▲5.53% | ▼0.75% | ▼10.43% |
+| 2024 | ▲36.1% | ▲13.08% | ▲13.39% | ▲12.13% | ▲2.52% | ▲16.27% | ▲37.64% | ▲4.01% | ▼18.29% | ▼8.27% | ▲8.15% | ▲38.92% |
+| 2025 | ▼25.57% | ▼24.61% | ▼16.9% | ▼8.26% | ▼8.81% | ▼7.28% | ▼19.97% | ▼2.97% | ▲13.16% | ▲3.43% | ▼9.01% | ▼15.44% |
+
+<br>
+
+### Average Length of Stay
+| Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
+|------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
+| 2019 | ▼13.33% | ▼13.64% | ▲0.0% | ▲0.0% | ▼11.11% | ▲5.56% | ▼3.57% | ▼7.14% | ▲10.34% | ▲0.0% | ▼3.85% | ▲3.7% |
+| 2020 | ▲23.08% | ▲10.53% | ▲15.0% | ▲5.0% | ▲29.17% | ▲52.63% | ▲18.52% | ▲15.38% | ▲15.63% | ▲17.86% | ▲20.0% | ▲14.29% |
+| 2021 | ▲21.87% | ▲14.29% | ▲4.35% | ▲19.05% | ▲6.45% | ▼24.14% | ▲9.37% | ▲0.0% | ▲0.0% | ▲3.03% | ▲6.67% | ▲3.12% |
+| 2022 | ▼30.77% | ▼16.67% | ▼8.33% | ▼12.0% | ▼24.24% | ▲22.73% | ▼22.86% | ▼3.33% | ▼24.32% | ▼17.65% | ▼18.75% | ▼18.18% |
+| 2023 | ▼11.11% | ▼5.0% | ▼13.64% | ▼13.64% | ▼4.0% | ▼18.52% | ▼11.11% | ▼20.69% | ▲10.71% | ▼3.57% | ▼7.69% | ▼14.81% |
+| 2024 | ▲16.67% | ▼5.26% | ▼5.26% | ▼5.26% | ▼16.67% | ▼13.64% | ▲8.33% | ▼4.35% | ▼22.58% | ▼14.81% | ▼8.33% | ▲8.7% |
+| 2025 | ▼17.86% | ▼11.11% | ▼5.56% | ▲5.56% | ▲0.0% | ▲0.0% | ▼15.38% | ▲4.55% | ▲20.83% | ▲8.7% | ▲0.0% | ▼12.0% |
+
+<br>
+
+### Estimated Expenditure
+| Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
+|------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
+| 2019 | ▲11.4% | ▼13.56% | ▼1.29% | ▲34.47% | ▲29.53% | ▼2.5% | ▲10.29% | ▲2.73% | ▲7.74% | ▲9.99% | ▲7.01% | ▲9.69% |
+| 2020 | ▼9.18% | ▼49.41% | ▼41.11% | ▼43.93% | ▼22.01% | ▼2.44% | ▼12.69% | ▼42.27% | ▼23.5% | ▼28.82% | ▼27.61% | ▼14.86% |
+| 2021 | ▼25.27% | ▲4.67% | ▼6.65% | ▼1.1% | ▼30.77% | ▼38.16% | ▼24.7% | ▼10.0% | ▼12.53% | ▼16.08% | ▼16.92% | ▼24.13% |
+| 2022 | ▲157.35% | ▲166.88% | ▲175.93% | ▲136.67% | ▲123.08% | ▲287.23% | ▲115.73% | ▲135.19% | ▲94.44% | ▲110.47% | ▲126.96% | ▲92.05% |
+| 2023 | ▼2.71% | ▲15.78% | ▲2.01% | ▲2.82% | ▲13.83% | ▼30.6% | ▼5.57% | ▼5.07% | ▲25.46% | ▲14.24% | ▲5.37% | ▼7.76% |
+| 2024 | ▲12.86% | ▲18.9% | ▲27.69% | ▲40.68% | ▲16.29% | ▲38.88% | ▲29.93% | ▲15.68% | ▼9.65% | ▲1.65% | ▲15.65% | ▲43.65% |
+| 2025 | ▼7.39% | ▼14.32% | ▼6.81% | ▼20.42% | ▼10.74% | ▲41.85% | ▼5.14% | ▲13.72% | ▲14.65% | ▲8.61% | ▲0.21% | ▼3.72% |
 
 
 ```sql
 --- The query says select some columns and calculate percent 
 --- growth from a table which has two copies (d1 and d2) and 
 --- self join them on regions and year. Also ensure the label is 
---- Number of trips and order by Regions first then Year.
+--- Number of trips and order by Regions then Year.
 
 SELECT
     d1.Year,
