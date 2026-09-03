@@ -1,5 +1,25 @@
-# Some cleaning
-## 1. Improving column names
+## Table of Contents
+- [Some cleaning](#cleaning_main_heading)
+    - [Improving column names](#improving_column_names)
+    - [Concise names for Statistic Label](#concise_names_for_stat_labels)
+- [Data Exploration](#data_exploration)
+  - [1. Dataset size](#dataset_size)
+  - [2. Missing values](#missing_values)
+  - [3. All Regions](#all_regions)
+  - [4. Statistic Labels and their respective units](#stat_labels_and_units)
+  - [5. Count of records for each stat label](#each_stat_label_record_count)
+  - [6. Count of records using years](#counting_records_through_years)
+  - [7. Sum aggregation of values](#sum_of_values)
+  - [8. Time trend analysis for Number of Trips](#time_trend_analysis)
+      - [Number of Trips](#number_of_trips)
+      - [Number of Nights](#number_of_nights)
+      - [Average Length of Stay](#avg_length_of_stay)
+      - [Estimated Expenditure](#estimated_expenditure)
+- [Source of data](#data_source)
+
+
+# Some cleaning <a name="cleaning_main_heading"></a>
+## 1. Improving column names <a name="improving_column_names"></a>
 ```sql
 ALTER TABLE domestic_travel
 RENAME COLUMN "Statistic Label" TO Statistic_Label;
@@ -8,7 +28,7 @@ ALTER TABLE domestic_travel
 RENAME COLUMN "Region Visited" TO Region_Visited;
 ```
 
-## 2. Concise names for Statistic Label
+## 2. Concise names for Statistic Label <a name="concise_names_for_stat_labels"></a>
 *We are renaming the default label names for readability purposes. <br>For example, 'Number of Trips by Irish Residents on Domestic Travel' to 'Number of Trips'.*
 
 ```sql
@@ -30,8 +50,8 @@ END;
 | Average Length of Stay by Irish Residents on Domestic Travel || Average Length of Stay |
 | Estimated Expenditure by Irish Residents on Domestic Travel  || Estimated Expenditure  |
 
-# Data Exploration
-## 1. Dataset size
+# Data Exploration <a name="data_exploration"></a>
+## 1. Dataset size <a name="dataset_size"></a>
 *Total 384 rows*
 ```sql
 `SELECT COUNT(*) FROM domestic_travel;`
@@ -42,7 +62,7 @@ END;
 | --- |
 | 384 |
 
-## 2. Missing values
+## 2. Missing values <a name="missing_values"></a>
 *There are no missing values.*
 
 ```sql
@@ -61,7 +81,7 @@ FROM domestic_travel;
 | --- | --- | --- | --- | --- | --- |
 | 384 | 384 | 384 | 384 | 384 | 384 |
 
-## 3. All Regions
+## 3. All Regions <a name="all_regions"></a>
 *There are 12 regions.*<br><br>
 `SELECT DISTINCT Region_Visited FROM domestic_travel;`
 
@@ -82,7 +102,7 @@ FROM domestic_travel;
 | Midland              |
 <br>
 
-## 4. Statistic Labels and their respective units
+## 4. Statistic Labels and their respective units <a name="stat_labels_and_units"></a>
 *The statistic labels are measured in their own units.* <br><br>
 `SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;`
 
@@ -95,7 +115,7 @@ FROM domestic_travel;
 | Estimated Expenditure  | Euro Million    |
 <br>
 
-## 5. Count of records for each stat label
+## 5. Count of records for each stat label <a name="each_stat_label_record_count"></a>
 *There are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
 `SELECT`<br>`Statistic_Label,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label; `
 
@@ -107,7 +127,7 @@ FROM domestic_travel;
 | Number of Nights       | 96            |
 | Number of Trips        | 96            |
 
-## 6. Count of records using years
+## 6. Count of records using years <a name="counting_records_through_years"></a>
 *There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows* <br><br> 
 `SELECT`<br>`Year,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Year; `
 
@@ -123,7 +143,7 @@ FROM domestic_travel;
 | 2024 | 48            |
 | 2025 | 48            |
 
-## 7. Sum aggregation of values
+## 7. Sum aggregation of values <a name="sum_of_values"></a>
 * **Number of Nights:** *712 million*
 * **Number of Trips:** *286 million*
 * **Estimated Expenditure:** *60 euro millions*
@@ -140,10 +160,10 @@ FROM domestic_travel;
 | Estimated Expenditure  | 60489.7 | Euro Million    |
 | Average Length of Stay | 242.3   | Nights per Trip |
 
-## 8. Time trend analysis for Number of Trips
+## 8. Time trend analysis for Number of Trips <a name="time_trend_analysis"></a>
 This section looks at time trend analysis for all 4 statistic labels. I want to see how was the growth for different regions during the 7-year period.
 
-### Number of Trips
+### Number of Trips <a name="number_of_trips"></a>
 I observed that
 * The pandemic year caused decline in the number of trips throughout all regions.
   * Dublin shows the heaviest decline of 49.4% followed by 46.44% of Mid-East.
@@ -168,7 +188,7 @@ I observed that
 
 <br>
 
-### Number of Nights
+### Number of Nights <a name="number_of_nights"></a>
 * The pandemic year caused decline in the number of nights throughout all regions.
   * Dublin shows the heaviest decline of 44.48% followed by 43.69% of Mid-East.
   * Mid-West showed the least decline (3.65%).
@@ -196,7 +216,7 @@ I observed that
 
 <br>
 
-### Average Length of Stay
+### Average Length of Stay <a name="avg_length_of_stay"></a>
 | Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
 |------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
 | 2019 | ▼13.33% | ▼13.64% | ▲0.0% | ▲0.0% | ▼11.11% | ▲5.56% | ▼3.57% | ▼7.14% | ▲10.34% | ▲0.0% | ▼3.85% | ▲3.7% |
@@ -209,7 +229,7 @@ I observed that
 
 <br>
 
-### Estimated Expenditure
+### Estimated Expenditure <a name="estimated_expenditure"></a>
 | Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
 |------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
 | 2019 | ▲11.4% | ▼13.56% | ▼1.29% | ▲34.47% | ▲29.53% | ▼2.5% | ▲10.29% | ▲2.73% | ▲7.74% | ▲9.99% | ▲7.01% | ▲9.69% |
@@ -277,5 +297,5 @@ ORDER BY d1.Region_Visited, d1.Year;
 
 *There are total 96 rows in this output. I have only shown 26 for space-saving.*
 
-# Source of data
+# Source of data <a name="data_source"></a>
 The data is also at https://data.cso.ie/table/HTA17.
