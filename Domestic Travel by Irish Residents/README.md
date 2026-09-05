@@ -82,9 +82,10 @@ FROM domestic_travel;
 | 384 | 384 | 384 | 384 | 384 | 384 |
 
 ## 3. All Regions <a name="all_regions"></a>
-*There are 12 regions.*<br><br>
-`SELECT DISTINCT Region_Visited FROM domestic_travel;`
-
+*There are 12 regions.*
+```sql
+SELECT DISTINCT Region_Visited FROM domestic_travel;
+```
 ### Output
 | Region_Visited       |
 |----------------------|
@@ -103,8 +104,10 @@ FROM domestic_travel;
 <br>
 
 ## 4. Statistic Labels and their respective units <a name="stat_labels_and_units"></a>
-*The statistic labels are measured in their own units.* <br><br>
-`SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;`
+*The statistic labels are measured in their own units.*
+```sql
+SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;
+```
 
 ### Output
 | Statistic_Label        | UNIT            |
@@ -116,8 +119,14 @@ FROM domestic_travel;
 <br>
 
 ## 5. Count of records for each stat label <a name="each_stat_label_record_count"></a>
-*There are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows* <br><br> 
-`SELECT`<br>`Statistic_Label,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label; `
+*There are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows*
+```sql
+SELECT
+    Statistic_Label,
+    COUNT(*) as Total_Records
+FROM domestic_travel
+GROUP BY Statistic_Label;
+```
 
 ### Output
 | Statistic_Label        | Total_Records |
@@ -128,8 +137,14 @@ FROM domestic_travel;
 | Number of Trips        | 96            |
 
 ## 6. Count of records using years <a name="counting_records_through_years"></a>
-*There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows* <br><br> 
-`SELECT`<br>`Year,`<br>`COUNT(*) as Total_Records`<br>`FROM domestic_travel`<br>`GROUP BY Year; `
+*There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows*
+```sql
+SELECT
+    Year,
+    COUNT(*) as Total_Records
+FROM domestic_travel
+GROUP BY Year;
+```
 
 ### Output
 | Year | Total_Records |
@@ -148,9 +163,16 @@ FROM domestic_travel;
 * **Number of Trips:** *286 million*
 * **Estimated Expenditure:** *60 euro millions*
 * **Average Length of Stay:** *242.3 nights per trip*
-<br><br> 
 
-`SELECT`<br>`Statistic_Label,`<br>`SUM(VALUE) as _Sum,`<br>`UNIT`<br>`FROM domestic_travel`<br>`GROUP BY Statistic_Label`<br>`ORDER BY _Sum DESC;`
+```sql
+SELECT
+    Statistic_Label,
+    SUM(VALUE) as _Sum,
+    UNIT
+FROM domestic_travel
+GROUP BY Statistic_Label
+ORDER BY _Sum DESC;
+```
 
 ### Output
 | Statistic_Label        | _Sum    | UNIT            |
@@ -217,6 +239,21 @@ I observed that
 <br>
 
 ### Average Length of Stay <a name="avg_length_of_stay"></a>
+* In 2020, average length of stay improved compared with 2019.
+* Same for 2021; the average length of stay improved in comparison to 2020.
+  * However, only Midland showed a decline of 24.14%.
+* Contrary to 2021, the average length of stay declined everywhere except Midland (22.73%) in 2022.
+* The trend continued to decline in 2023 in all regions except South-West (10.71%).
+* In 2024, most regions show a declining average length of stay except,
+  * Border, improved to 16.67%.
+  * Northern & Western, improved to 8.33%.
+  * West, improved to 8.7%.
+* In 2025, there is no clear pattern of increase or decrease. 
+  * Mid-West, Midland and State show 0.0% change.
+  * 4 regions improved.
+  * 5 regions declined.
+<br><br>
+
 | Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
 |------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
 | 2019 | ▼13.33% | ▼13.64% | ▲0.0% | ▲0.0% | ▼11.11% | ▲5.56% | ▼3.57% | ▼7.14% | ▲10.34% | ▲0.0% | ▼3.85% | ▲3.7% |
@@ -230,6 +267,18 @@ I observed that
 <br>
 
 ### Estimated Expenditure <a name="estimated_expenditure"></a>
+* In 2020, estimated expenditure went down across all regions.
+* In 2021, estimated expenditure went down across all regions except Dublin.
+  * Dublin displayed a 4.67% increase. 
+* In 2022, estimated expenditure went up across all regions.
+  * Midland showed the highest increase of 287.23% amongst all regions.
+  * The second-highest increase was 175.93%, marked by Eastern & Midland.
+  * The third-highest increase was 166.88%, marked by Dublin.
+* In 2023, there is no clear pattern. 
+* In 2024, estimated expenditure went up across all regions except South-West.
+* In 2025, there is no clear pattern. 
+<br><br>
+
 | Year | Border | Dublin | Eastern & Midland | Mid-East | Mid-West | Midland | Northern & Western | South-East | South-West | Southern | State | West |
 |------|--------|--------|-------------------|----------|----------|---------|--------------------|------------|------------|----------|-------|------|
 | 2019 | ▲11.4% | ▼13.56% | ▼1.29% | ▲34.47% | ▲29.53% | ▼2.5% | ▲10.29% | ▲2.73% | ▲7.74% | ▲9.99% | ▲7.01% | ▲9.69% |
@@ -247,21 +296,21 @@ I observed that
 --- self join them on regions and year. Also ensure the label is 
 --- Number of trips and order by Regions then Year.
 
-SELECT
-    d1.Year,
-    d1.Region_Visited,
-    d1.VALUE AS current_,
-    d2.VALUE AS previous_,
+SELECT     --- Choose the columns to show
+    d1.Year,    --- The current year
+    d1.Region_Visited,    --- The regions
+    d1.VALUE AS current_,    --- The current year
+    d2.VALUE AS previous_,    --- The previous year
     ROUND(
         ((d1.VALUE - d2.VALUE) * 100.0 / d2.VALUE), 2) 
-    AS yoy_growth_pct
-FROM domestic_travel d1
-LEFT JOIN domestic_travel d2
-    ON d1.Region_Visited = d2.Region_Visited
-    AND d1.Year = d2.Year + 1
-    AND d2.Statistic_Label = 'Number of Trips'
-WHERE d1.Statistic_Label = 'Number of Trips'
-ORDER BY d1.Region_Visited, d1.Year;
+    AS yoy_growth_pct    --- Year-over-year growth percentage
+FROM domestic_travel d1    --- Create an alias d1 (This will hold the current year's data.)
+LEFT JOIN domestic_travel d2    --- Alias d2 will hold the previous year's data. For each row in d1, try to find the matching rows from the same table again.
+    ON d1.Region_Visited = d2.Region_Visited    --- Example: d1=Border will only try to match d2=Border 
+    AND d1.Year = d2.Year + 1     --- Example: if d1.Year=2019, then d2.Year must be 2018.
+    AND d2.Statistic_Label = 'Number of Trips'    --- Choose the desired Statistic_Label
+WHERE d1.Statistic_Label = 'Number of Trips'    --- After the join is done, keep only the rows from d1 where Statistic_Label is 'Number of Trips'
+ORDER BY d1.Region_Visited, d1.Year;    --- Sort the final result first by region then by year (oldest to newest)
 ```
 
 ### Output
@@ -295,7 +344,7 @@ ORDER BY d1.Region_Visited, d1.Year;
 | 2018 | Mid-East            | 854      |           |                |
 | 2019 | Mid-East            | 1053     | 854       | 23.3           |
 
-*There are total 96 rows in this output. I have only shown 26 for space-saving.*
+*There are total 96 rows in this output. I have only shown 26 for example.*
 
 # Source of data <a name="data_source"></a>
 The data is also at https://data.cso.ie/table/HTA17.
