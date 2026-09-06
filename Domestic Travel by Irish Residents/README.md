@@ -14,8 +14,8 @@
       - [Number of Nights](#number_of_nights)
       - [Average Length of Stay](#avg_length_of_stay)
       - [Estimated Expenditure](#estimated_expenditure)
+- [Future Work](#future_work)
 - [Source of data](#data_source)
-
 
 # Data Dictionary <a name="data_dictionary"></a>
 | Column Name     | Data Type | Description/Notes                         |
@@ -320,6 +320,61 @@ ORDER BY d1.Region_Visited, d1.Year;    --- Sort the final result first by regio
 | 2019 | Mid-East            | 1053     | 854       | 23.3           |
 
 *There are total 96 rows in this output. I have only shown 26 as an example.*
+
+# Future Work <a name="future_work"></a>
+## Presence of all regions in a column
+The data source has 12 regions. The regions used are based on the NUTS (Nomenclature of Territorial Units). NUTS is overarching framework for regional and territorial statistics in the European Statistical System. 
+
+Ireland consists of 1 region at NUTS 1 (state), 3 regions at NUTS 2 and 8 regions at NUTS 3 level as shown in the diagram below. 
+
+
+```mermaid
+graph TD;    
+    NUTS --> NUTS1_GROUP & NUTS2_GROUP & NUTS3_GROUP;
+    
+    subgraph NUTS1_GROUP [NUTS 1 Regions]
+        direction TD
+        NUTS1 --> State;
+    end
+    
+    subgraph NUTS2_GROUP [NUTS 2 Regions]
+        direction LR
+        NUTS2 --> Northern_Western["Northern & Western"] & Southern & Eastern_Midland["Eastern & Midland"];
+    end
+
+    subgraph NUTS3_GROUP [NUTS 3 Regions]
+        direction LR
+        NUTS3 --> Border & West & Mid-West & South-East & South-West & Dublin & Mid-East & Midland;
+    end
+```
+The NUTS 2 regions further contain NUTS 3 regions. The structure is given as follows.
+<br>
+<table>
+  <tr>
+    <th>Northern & Western</th>
+    <th>Southern</th>
+    <th>Eastern & Midland</th>
+  </tr>
+  <tr>
+    <td><strong>Border</strong><br>Cavan<br>Donegal<br>Leitrim<br>Monaghan<br>
+Sligo</td>
+    <td><strong>Mid-West</strong><br>Clare<br>Limerick<br>Tipperary</td>
+    <td><strong>Dublin</strong><br>Dublin City<br>Dun Laoghaire-Rathdown<br>Fingal<br>South Dublin</td>
+  </tr>
+  <tr>
+    <td><strong>West</strong><br>Galway<br>Mayo<br>Roscommon</td>
+    <td><strong>South-East</strong><br>Carlow<br>Kilkenny<br>Waterford<br>Wexford</td>
+    <td><strong>Mid-East</strong><br>Kildare<br>Louth<br>Meath<br>Wicklow</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><strong>South-West</strong><br>Cork<br>Kerry</td>
+    <td><strong>Midland</strong><br>Laois<br>Longford<br>Offaly<br>Westmeath</td>
+  </tr>
+</table>
+
+<br>
+The confusion is the presence of all NUTS level regions in one column i.e. "Region Visited". Hence, the analysis is very misguiding. The future work is researching the reason behind presence of all levels in one column. 
 
 # Source of data <a name="data_source"></a>
 The data is also at https://data.cso.ie/table/HTA17.
