@@ -1,4 +1,5 @@
 ## Table of Contents
+- [Data Dictionary](#data_dictionary)
 - [Some cleaning](#cleaning_main_heading)
     - [Improving column names](#improving_column_names)
     - [Concise names for Statistic Label](#concise_names_for_stat_labels)
@@ -7,10 +8,8 @@
   - [2. Missing values](#missing_values)
   - [3. All Regions](#all_regions)
   - [4. Statistic Labels and their respective units](#stat_labels_and_units)
-  - [5. Count of records for each stat label](#each_stat_label_record_count)
-  - [6. Count of records using years](#counting_records_through_years)
-  - [7. Sum aggregation of values](#sum_of_values)
-  - [8. Time trend analysis for Number of Trips](#time_trend_analysis)
+  - [5. Sum aggregation of values](#sum_of_values)
+  - [6. Time trend analysis for Number of Trips](#time_trend_analysis)
       - [Number of Trips](#number_of_trips)
       - [Number of Nights](#number_of_nights)
       - [Average Length of Stay](#avg_length_of_stay)
@@ -18,6 +17,14 @@
 - [Source of data](#data_source)
 
 
+# Data Dictionary <a name="data_dictionary"></a>
+| Column Name     | Data Type | Description/Notes                         |
+|-----------------|-----------|-------------------------------------------|
+| Statistic_Label | TEXT      | Domestic travel patterns                  |
+| Year            | INTEGER   | The year                                  |
+| Region_Visited  | TEXT      | The geographic region                     |
+| UNIT            | TEXT      | The unit of measurement for the statistic |
+| VALUE           | INTEGER   | The quantitative value recorded           |
 # Some cleaning <a name="cleaning_main_heading"></a>
 ## 1. Improving column names <a name="improving_column_names"></a>
 ```sql
@@ -54,7 +61,7 @@ END;
 ## 1. Dataset size <a name="dataset_size"></a>
 *Total 384 rows*
 ```sql
-`SELECT COUNT(*) FROM domestic_travel;`
+SELECT COUNT(*) FROM domestic_travel;
 ```
 
 ### Output
@@ -67,12 +74,12 @@ END;
 
 ```sql
 SELECT 
-COUNT(*) AS total_rows,
-COUNT("Statistic_Label") AS label_count,
-COUNT("Year") AS year_count,
-COUNT("Region_Visited") AS region_count,
-COUNT("UNIT") AS unit_count,
-COUNT("VALUE") AS value_count
+  COUNT(*) AS total_rows,
+  COUNT("Statistic_Label") AS label_count,
+  COUNT("Year") AS year_count,
+  COUNT("Region_Visited") AS region_count,
+  COUNT("UNIT") AS unit_count,
+  COUNT("VALUE") AS value_count
 FROM domestic_travel;
 ```
 
@@ -101,12 +108,17 @@ SELECT DISTINCT Region_Visited FROM domestic_travel;
 | Dublin               |
 | Mid-East             |
 | Midland              |
+
 <br>
 
 ## 4. Statistic Labels and their respective units <a name="stat_labels_and_units"></a>
 *The statistic labels are measured in their own units.*
 ```sql
-SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;
+SELECT 
+  DISTINCT Statistic_Label, 
+  UNIT 
+FROM 
+domestic_travel;
 ```
 
 ### Output
@@ -116,49 +128,10 @@ SELECT DISTINCT Statistic_Label, UNIT FROM domestic_travel;
 | Number of Nights       | Thousand        |
 | Average Length of Stay | Nights per Trip |
 | Estimated Expenditure  | Euro Million    |
+
 <br>
 
-## 5. Count of records for each stat label <a name="each_stat_label_record_count"></a>
-*There are exactly 96 rows for all 4 labels.* <br> *96 x 4 = 384 total rows*
-```sql
-SELECT
-    Statistic_Label,
-    COUNT(*) as Total_Records
-FROM domestic_travel
-GROUP BY Statistic_Label;
-```
-
-### Output
-| Statistic_Label        | Total_Records |
-|------------------------|---------------|
-| Average Length of Stay | 96            |
-| Estimated Expenditure  | 96            |
-| Number of Nights       | 96            |
-| Number of Trips        | 96            |
-
-## 6. Count of records using years <a name="counting_records_through_years"></a>
-*There are exactly 48 rows for all 8 years.* <br> *48 x 8 = 384 total rows*
-```sql
-SELECT
-    Year,
-    COUNT(*) as Total_Records
-FROM domestic_travel
-GROUP BY Year;
-```
-
-### Output
-| Year | Total_Records |
-|------|---------------|
-| 2018 | 48            |
-| 2019 | 48            |
-| 2020 | 48            |
-| 2021 | 48            |
-| 2022 | 48            |
-| 2023 | 48            |
-| 2024 | 48            |
-| 2025 | 48            |
-
-## 7. Sum aggregation of values <a name="sum_of_values"></a>
+## 5. Sum aggregation of values <a name="sum_of_values"></a>
 * **Number of Nights:** *712 million*
 * **Number of Trips:** *286 million*
 * **Estimated Expenditure:** *60 euro millions*
@@ -182,7 +155,9 @@ ORDER BY _Sum DESC;
 | Estimated Expenditure  | 60489.7 | Euro Million    |
 | Average Length of Stay | 242.3   | Nights per Trip |
 
-## 8. Time trend analysis for Number of Trips <a name="time_trend_analysis"></a>
+<br>
+
+## 6. Time trend analysis for Number of Trips <a name="time_trend_analysis"></a>
 This section looks at time trend analysis for all 4 statistic labels. I want to see how was the growth for different regions during the 7-year period.
 
 ### Number of Trips <a name="number_of_trips"></a>
@@ -344,7 +319,7 @@ ORDER BY d1.Region_Visited, d1.Year;    --- Sort the final result first by regio
 | 2018 | Mid-East            | 854      |           |                |
 | 2019 | Mid-East            | 1053     | 854       | 23.3           |
 
-*There are total 96 rows in this output. I have only shown 26 for example.*
+*There are total 96 rows in this output. I have only shown 26 as an example.*
 
 # Source of data <a name="data_source"></a>
 The data is also at https://data.cso.ie/table/HTA17.
