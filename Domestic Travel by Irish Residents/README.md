@@ -9,7 +9,8 @@
   - [3. All Regions](#all_regions)
   - [4. Statistic Labels and their respective units](#stat_labels_and_units)
   - [5. Sum aggregation of values](#sum_of_values)
-  - [6. Time trend analysis for Number of Trips](#time_trend_analysis)
+    - [Step-by-step breakdown of how the query works](#step_by_step_breakdown)
+  - [6. Time trend analysis](#time_trend_analysis)
       - [Number of Trips](#number_of_trips)
       - [Number of Nights](#number_of_nights)
       - [Average Length of Stay](#avg_length_of_stay)
@@ -132,10 +133,10 @@ domestic_travel;
 <br>
 
 ## 5. Sum aggregation of values <a name="sum_of_values"></a>
-* **Number of Nights:** *712 million*
-* **Number of Trips:** *286 million*
-* **Estimated Expenditure:** *60 euro millions*
-* **Average Length of Stay:** *242.3 nights per trip*
+* **Number of Nights:** ~*713 million*
+* **Number of Trips:** ~*286 million*
+* **Estimated Expenditure:** *60.49 billions*
+* **Average Length of Stay:** *2.59 nights per trip*
 
 ```sql
 SELECT
@@ -143,9 +144,38 @@ SELECT
     SUM(VALUE) as _Sum,
     UNIT
 FROM domestic_travel
+WHERE Statistic_Label != 'Average Length of Stay'
 GROUP BY Statistic_Label
+
+UNION ALL
+
+SELECT 
+    'Average Length of Stay' as Statistic_Label,
+    (SELECT AVG(VALUE) 
+     FROM domestic_travel
+     WHERE Region_Visited = 'State'
+     AND Statistic_Label = 'Average Length of Stay') as _Sum,
+    'Nights per Trip' as UNIT
+
 ORDER BY _Sum DESC;
 ```
+### Step-by-step breakdown of how the query works <a name="#step_by_step_breakdown"></a>
+#### 1. The Main Query (First SELECT)
+- **What it does:** It calculates the total (SUM) for every travel statistic in the dataset (such as total trips, total expenditure, or total nights spent), except for "Average Length of Stay".
+
+- **Why exclude it?** You shouldn't "sum" an average (e.g., adding up average trip lengths across different categories wouldn't make logical sense).
+
+- **Grouping:** It groups the results by Statistic_Label so you get one total row per metric.
+
+#### 2. The Combined Metric (Second SELECT with Subquery)
+- **UNION ALL:** This pastes the result of this second query directly below the results of the first query.
+
+- **Hardcoded Label & Unit:** It manually labels this row as 'Average Length of Stay' and gives it the unit 'Nights per Trip'.
+
+- **The Subquery:** Instead of a total sum, it calculates the average (AVG(VALUE)) specifically for state-level data (Region_Visited = 'State'). This ensures the average length of stay is computed correctly using an average function rather than a sum.
+
+#### 3. Final Sorting
+- Once both parts are combined into a single dataset, the ORDER BY clause sorts everything by the calculated metric (_Sum) in descending order (highest values at the top, lowest at the bottom).
 
 ### Output
 | Statistic_Label        | _Sum    | UNIT            |
@@ -153,11 +183,11 @@ ORDER BY _Sum DESC;
 | Number of Nights       | 712989  | Thousand        |
 | Number of Trips        | 286083  | Thousand        |
 | Estimated Expenditure  | 60489.7 | Euro Million    |
-| Average Length of Stay | 242.3   | Nights per Trip |
+| Average Length of Stay | 2.5875   | Nights per Trip |
 
 <br>
 
-## 6. Time trend analysis for Number of Trips <a name="time_trend_analysis"></a>
+## 6. Time trend analysis <a name="time_trend_analysis"></a>
 This section looks at time trend analysis for all 4 statistic labels. I want to see how was the growth for different regions during the 7-year period.
 
 ### Number of Trips <a name="number_of_trips"></a>
